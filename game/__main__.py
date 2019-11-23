@@ -2,6 +2,10 @@ import pygame
 from pygame.locals import *
 from sys import exit
 
+from game import object
+
+obj = object.Object()
+
 
 class App:
     screenWidth = 800
@@ -21,19 +25,19 @@ class App:
     def on_render():
         pygame.display.update()
 
-    @staticmethod
-    def on_event():
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                exit()
-
     def start(self, game_name):
         self.on_init(game_name)
-
+        self.on_render()
         while self.RUNNING:
-            self.on_render()
-            self.on_event()
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    exit()
+
+            obj.on_pos(300, 300)
+            obj.render()
+
+            pygame.display.update()
 
 
 if __name__ == "__main__":
